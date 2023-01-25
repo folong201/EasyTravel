@@ -1,0 +1,1 @@
+console.log("ici le fichier javascript");

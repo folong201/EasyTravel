@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <center>
+        <h2>
+            Page for test
+        </h2>
+    </center>
+    <div class="container">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis sint veniam alias doloremque eius deleniti iure voluptatum quod sit? Vitae quibusdam ducimus illo cupiditate ipsam eveniet vel sapiente quisquam est!
+    </div>
+    <div class="container">
+
+        <p class="p">
+            <div class="btn btn-secondary">
+                bouton
+            </div>
+        </p>
+    </div>
+    <div class="container">
+        <table>
+            <tbody th:each="user : ${users}" th:remove="tag">
+               <tr>
+                  <td th:text="${user.mobile}">...</td>
+                  <td th:text="${user.id}">...</td>
+               </tr>
+            </tbody>
+         </table>
+    </div>
+</body>
+</html>

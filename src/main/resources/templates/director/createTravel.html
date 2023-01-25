@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Agency Director Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  </head>
+<body>
+  <center>
+    <h2>Welcome to Director Dashboard</h2>
+  </center>
+    <div class="container">
+      <p>Logged as: <span sec:authentication="name"></span></p>
+      <p>Has role: <span sec:authentication="authorities"></span></p>
+    </div>
+    <div class="container">
+      <center>
+          <h2>
+              create Travel
+          </h2>
+      </center>
+    </div>
+  <div class="container " style="display: flex; place-items: 12px;">
+    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
+  </div>
+  <div class="container">
+    <form th:action="@{/director/createTravel}" method="post" th:object="${travel}">
+        <input type="text" name="depart" class="form-control" placeholder="Depart" th:field="*{depart}"> <br>
+        <input type="text" name="destination" class="form-control" placeholder="Destination" th:field="*{destination}"> <br>
+        <input type="date" name="date" class="form-control" placeholder="Date" th:field="*{date}"> <br>
+        <input type="time" name="hour" class="form-control" placeholder="hour" th:field="*{heure}"> <br>
+        <input class="btn btn-primary" type="submit"></div>
+    </form>
+  </div>
+
+  <style>
+    .spacer{
+      margin: 20px;
+    }
+  </style>
+</body>
+</html>
