@@ -60,7 +60,7 @@ public class UserController {
         // model.addAttribute()
         // model2.addAttribute("travel", new Travel()); 
         // model.addAttribute("travels",travelRepo.findAll());
-        System.out.println(travelRepo.specialUser(travel.getDepart(), travel.getDestination(), travel.getDate(), travel.getHeure()));
+        // System.out.println(travelRepo.specialUser(travel.getDepart(), travel.getDestination(), travel.getDate(), travel.getHeure()));
         return "redirect:/user/reservation";
     }
 

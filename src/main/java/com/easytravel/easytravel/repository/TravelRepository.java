@@ -15,6 +15,6 @@ import com.easytravel.easytravel.model.Travel;
 public interface TravelRepository extends JpaRepository<Travel,Long> {
     // List<Travel> findByAgenceId(Long id);
     // List<Travel> findByAgence(Agence agence);
-    @Query("SELECT t FROM Travles ORDER BY id")
+    // @Query("SELECT t FROM Travles ORDER BY id")
     // public List<Travel> specialUser(String depart,String destination,String date,String heure);
 }
