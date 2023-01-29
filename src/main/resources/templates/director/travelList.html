@@ -15,38 +15,75 @@
     <p>Has role: <span sec:authentication="authorities"></span></p>
   </div>
   <div class="container " style="display: flex; place-items: 12px;">
-    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/director/dashboard}">Home</a></p>
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/director/createTravel}">createTravel</a></p>
     <p class="spacer"><a th:href="@{/director/travelList}">Travel List</a></p>
   </div>
-  <div class="container">
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">depart</th>
-            <th scope="col">destination</th>
-            <th scope="col">Heure</th>
-            <th scope="col">date</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Younde</td>
-            <td>Douala</td>
-            <td>09:30 AM</td>
-            <td>23-5-22</td>
-            <td><i class="bi bi-pencil-square"></i></td>
-            <td><i class="bi bi-trash red"></i></td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
+    <!-- <div class="container">
+      <table class="table">
 
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Younde</td>
+              <td>Douala</td>
+              <td>09:30 AM</td>
+              <td>23-5-22</td>
+              <td><i class="bi bi-pencil-square"></i></td>
+              <td><i class="bi bi-trash red"></i></td>
+            </tr>
+          </tbody>
+        </table>
+    </div> -->
+
+
+  <div class="container">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">depart</th>
+          <th scope="col">destination</th>
+          <th scope="col">date</th>
+          <th scope="col">Heure</th>
+          <th scope="col">Tarif</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr th:if="${travels.empty}">
+          <th scope="row">1</th>
+          <td colspan="2"> No travels Available </td>
+        </tr>
+        <tr th:each="agence : ${travels}">
+          <!-- <th scope="row">1</th> -->
+          <td><span th:text="${agence.id}"> </span></td>
+          <td><span th:text="${agence.depart}"> </span></td>
+          <td><span th:text="${agence.destination}"> </span></td>
+          <td><span th:text="${agence.date}"> </span></td>
+          <td><span th:text="${agence.heure}"> </span></td>
+          <td><span th:text="${agence.Tarif}"> </span></td>
+
+
+          <td>
+            <!-- (id=${agence.id}) -->
+            <a th:href="@{/director/travel/delete(id=${agence.id})}">
+              <i class="bi bi-trash red"></i>
+            </a>
+          </td>
+          
+          <td>
+            <i class="bi bi-pencil-square"></i>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
   <style>
     .spacer{
       margin: 20px;

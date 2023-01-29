@@ -1,21 +1,32 @@
 package com.easytravel.easytravel.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-// import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name = "travels")
+@Entity(name = "Travels")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "Travels")
 public class Travel {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
    @Column(name = "depart")
     private String depart;
     @Column(name = "destination")
@@ -24,11 +35,18 @@ public class Travel {
     private String date; 
     @Column(name = "heure")
     private String heure;
-    @Column(name = "agence")
-    private int agenceId;
+    @Column(name = "agenceid")
+    private int agenceid;
     @Column(name = "tarif")
     private double Tarif;
     @Column(name = "bus")
     private String bus;
 
+    @ManyToOne
+    @OnDelete(action =OnDeleteAction.CASCADE)
+    private Agence Agence;
+
+    //ici on  precise qu'un voyage a plusieur reservations
+    // @OneToMany(mappedBy = "travel",cascade = CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = Reservation.class)
+    //     private List<Reservation> reservations;
 }

@@ -23,7 +23,7 @@ public class AdminService {
     public void createAgence(String mobile){
         Optional<User> user = userRepo.findByMobile(mobile);
         if(user!=null) {
-           Agence agence = new Agence(user.get().getId(),user.get().getFirstName());
+           Agence agence = new Agence((long) user.get().getId(),user.get().getFirstName());
         //    agence.setDirectorId(user);
            agenceRepo.save(agence);
         }

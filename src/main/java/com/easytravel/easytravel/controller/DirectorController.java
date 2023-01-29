@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +15,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.easytravel.easytravel.model.Travel;
+import com.easytravel.easytravel.model.User;
+import com.easytravel.easytravel.repository.TravelRepository;
+import com.easytravel.easytravel.service.AgenceService;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 // import ch.qos.logback.core.model.Model;
 
 @Controller
 public class DirectorController {
+    @Autowired
+    AgenceService aService;
+    @Autowired
+    TravelRepository travelRepo;
     @GetMapping("/director/dashboard")
     public String index() {
         return "/director/dashboard";
@@ -29,23 +41,36 @@ public class DirectorController {
     }
 
     @PostMapping("/director/createTravel")
-    public String createTravelsave(@ModelAttribute Travel travel,Model model){
-            Travel x= travel;
-            System.out.println(x);
-            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-mm-dd"); 
-            Date date;
-            // try {
-            //     date = DateFor.parse(travel.getDate().toString());
-            //     System.out.println(date);
-            // } catch (ParseException e) {
-            //     // TODO Auto-generated catch block
-            //     e.printStackTrace();
-            // }
+    public String createTravelsave(@ModelAttribute Travel travel, Model model) {
+        try {
+            Travel x = travel;
+            System.out.println(travel);
+            User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            aService.createTravel((long) user.getId(), travel);
+            System.out.println(user.getId());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(aService.findAll());
         return "director/createTravel";
     }
-
     @GetMapping(value = "/director/travelList")
-    public String getMethodName() {
+    public String getTravelList(Model model) {
+
+        System.out.println("List of travels");
+        model.addAttribute("travels",travelRepo.findAll());
+        System.out.println(travelRepo.findAll());
+        return "director/travelList";
+    }
+
+    @GetMapping("/director/travel/delete")
+    public String deleteTravel(@RequestParam Long id,Model model){
+
+        //ici il faut ecrire le code pour suprimer le voyage
+        travelRepo.deleteById(id);
+        model.addAttribute("travels",travelRepo.findAll());
+        System.out.println(travelRepo.findAll());
         return "director/travelList";
     }
 

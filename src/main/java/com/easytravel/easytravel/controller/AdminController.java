@@ -2,13 +2,18 @@ package com.easytravel.easytravel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import com.easytravel.easytravel.model.Agence;
 import com.easytravel.easytravel.model.User;
 import com.easytravel.easytravel.service.AdminService;
+import com.easytravel.easytravel.service.AgenceService;
 import com.easytravel.easytravel.service.UserService;
 import java.util.List;
 
@@ -22,6 +27,8 @@ public class AdminController {
     UserService userService;
     @Autowired
     AdminService adminService;
+    @Autowired
+    AgenceService agenceService;
     @RequestMapping(value = {"/admin/dashboard"}, method = RequestMethod.GET)
     public String adminHome(){
         return "admin/dashboard";
@@ -33,12 +40,13 @@ public class AdminController {
     }
     @RequestMapping(value = {"/admin/saveAgence"}, method = RequestMethod.POST)
     public String registerUser(Model model, @Valid User user, BindingResult bindingResult){
-        System.out.println(user.getMobile());
+        System.out.println(user);
+        // return "admin/createAgence";
         if(bindingResult.hasErrors()){
             model.addAttribute("successMessage", "User registered successfully! avec erreur simple");
             model.addAttribute("bindingResult", bindingResult);
             System.out.println(bindingResult);
-            return "auth/register";
+            return "admin/createAgence";
         }
         List <Object> userPresentObj = userService.isUserPresent(user);
         if((Boolean) userPresentObj.get(0)){
@@ -50,11 +58,23 @@ public class AdminController {
         model.addAttribute("successMessage", "User registered successfully! auth login should be returned");
         adminService.createAgence(user.getMobile());
         return "admin/dashboard";
-    }
+    }    
 
     @RequestMapping(value = {"/admin/agences"}, method = RequestMethod.GET)
-    public String getAgence(){
-        // model.addAttribute("user",new User());
+    public String getAgence(Model model){
+        model.addAttribute("agences",agenceService.findAll());
+         Iterable<Agence> agences =  agenceService.findAll();
+         System.out.println(agences);
+        return "admin/agence";
+    }
+    @GetMapping("/admin/agence/delete")
+    public String deleteAgence(@RequestParam Long id,Model model){
+        System.out.println(id);
+
+        agenceService.delete(id);
+        model.addAttribute("agences",agenceService.findAll());
+         Iterable<Agence> agences =  agenceService.findAll();
+         System.out.println(agences);
         return "admin/agence";
     }
 }

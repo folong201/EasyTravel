@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  </head>
+<body>
+  <center>
+    <h2>Welcome to User Dashboard</h2>
+  </center>
+  <div class="container">
+
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p>Has role: <span sec:authentication="authorities"></span></p>
+  </div>
+  <div class="container " style="display: flex; place-items: 12px;">
+    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
+    <p class="spacer"><a th:href="@{/user/eservation}">Reservation</a></p>
+  </div>
+  <div class="container">
+    <form th:action="@{/user/findReservation}" method="post" th:object="${travel}">
+        <input type="text" name="depart" class="form-control" placeholder="Depart" th:field="*{depart}"> <br>
+        <input type="text" name="destination" class="form-control" placeholder="Destination" th:field="*{destination}"> <br>
+        <input type="date" name="date" class="form-control" placeholder="Date" th:field="*{date}"> <br>
+        <input type="time" name="heure" class="form-control" placeholder="hour" th:field="*{heure}"> <br>
+        <input class="btn btn-primary" type="submit"></div>
+    </form>
+  </div>
+<center>
+    <h2>
+        Reservation
+    </h2>
+</center>
+<div class="container">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">depart</th>
+          <th scope="col">destination</th>
+          <th scope="col">date</th>
+          <th scope="col">Heure</th>
+          <th scope="col">Tarif</th>
+          <th scope="col">Reserver</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr th:if="${travels.empty}">
+          <th scope="row">1</th>
+          <td colspan="2"> No travels Available </td>
+        </tr>
+        <tr th:each="agence : ${travels}">
+          <!-- <th scope="row">1</th> -->
+          <td><span th:text="${agence.id}"> </span></td>
+          <td><span th:text="${agence.depart}"> </span></td>
+          <td><span th:text="${agence.destination}"> </span></td>
+          <td><span th:text="${agence.date}"> </span></td>
+          <td><span th:text="${agence.heure}"> </span></td>
+          <td><span th:text="${agence.Tarif}"> </span></td>
+          <!-- <td><span th:text="${agence.Agence}"> </span></td> -->
+
+
+          <td>
+            <!-- (id=${agence.id}) -->
+            <a th:href="@{/user/reserve(id=${agence.id})}">
+              <i class="bi bi-trash red"></i>
+            </a>
+          </td>
+          
+          <td>
+            <i class="bi bi-pencil-square"></i>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <style>
+    .spacer{
+      margin: 20px;
+    }
+  </style>
+</body>
+</html>

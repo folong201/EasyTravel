@@ -1,6 +1,8 @@
 package com.easytravel.easytravel.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import java.util.List;
 
 
 @Entity
@@ -79,6 +82,13 @@ public class User implements UserDetails  {
     @Column(name = "enabled")
     private Boolean enabled = true;
 
+
+  
+
+    // @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = Reservation.class)
+    // private List<Reservation> reservations;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
@@ -126,6 +136,7 @@ public class User implements UserDetails  {
     }
 
     public String getEmail() { return email; }
+    public int getId(){ return this.id; }
 
     public void setEmail(String email) { this.email = email; }
 
