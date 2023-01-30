@@ -1,5 +1,6 @@
 package com.easytravel.easytravel.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 // import java.util.Optional;
 
@@ -15,6 +16,6 @@ import com.easytravel.easytravel.model.Travel;
 public interface TravelRepository extends JpaRepository<Travel,Long> {
     // List<Travel> findByAgenceId(Long id);
     // List<Travel> findByAgence(Agence agence);
-    // @Query("SELECT t FROM Travles ORDER BY id")
-    // public List<Travel> specialUser(String depart,String destination,String date,String heure);
+    @Query(value = "SELECT * FROM Travels t WHERE t.depart=?1 AND t.destination=?2",nativeQuery = true)
+    public List<Travel> specialUser(String depart,String destination,String date,String heure);
 }

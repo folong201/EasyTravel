@@ -1,7 +1,7 @@
 package com.easytravel.easytravel.controller;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.easytravel.easytravel.model.Role;
+import com.easytravel.easytravel.model.Reservation;
 import com.easytravel.easytravel.model.Travel;
 import com.easytravel.easytravel.model.User;
+import com.easytravel.easytravel.repository.ReservationRepository;
 import com.easytravel.easytravel.repository.TravelRepository;
 import com.easytravel.easytravel.service.UserService;
 
@@ -30,6 +30,8 @@ public class UserController {
     UserService userService;
     @Autowired
     TravelRepository travelRepo;
+    @Autowired
+    ReservationRepository reservationRepo;
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
     public String homePage(){
         return "user/dashboard";
@@ -56,12 +58,26 @@ public class UserController {
         System.out.println("fiding  of travels");
         System.out.println(travel);
         
-        // List<Travel> travels =  (List<Travel>) travelRepo.specialUser(travel.getDepart(), travel.getDestination(), travel.getDate(), travel.getHeure());
+        List<Travel> travels =  travelRepo.specialUser(travel.getDepart(), travel.getDestination(), travel.getDate(), travel.getHeure());
         // model.addAttribute()
         // model2.addAttribute("travel", new Travel()); 
-        // model.addAttribute("travels",travelRepo.findAll());
-        // System.out.println(travelRepo.specialUser(travel.getDepart(), travel.getDestination(), travel.getDate(), travel.getHeure()));
-        return "redirect:/user/reservation";
+        model.addAttribute("travels",travels);
+        // System.out.println();
+        return "/user/resultfind";
+    }
+
+    @GetMapping(value = "/user/saveRservation")
+    public String saveReservation(@RequestParam Long id){
+        User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Travel travel = travelRepo.findById(id).orElse(null);
+        Reservation reservation = new Reservation();
+        reservation.setUser(user);
+        reservation.setEtat("demand");
+        reservation.setNbPlace(1);
+        reservation.setTravel(travel);
+        System.out.println(reservation);
+        // reservationRepo.save(reservation);
+        return "user/dashboard";
     }
 
 }

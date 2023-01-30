@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -55,4 +56,7 @@ public class Reservation {
     @ManyToOne
     @OnDelete(action =OnDeleteAction.CASCADE)
     private User user;
+
+    public void setTravel(Travel travel2) {
+    }
 }
