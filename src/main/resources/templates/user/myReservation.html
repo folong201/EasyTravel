@@ -19,7 +19,7 @@
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/user/reservation}">Reservation</a></p>
   </div>
-  <div class="container">
+  <!-- <div class="container">
     <form th:action="@{/user/findReservation}" method="post" th:object="${travel}">
         <input type="text" name="depart" class="form-control" placeholder="Depart" th:field="*{depart}"> <br>
         <input type="text" name="destination" class="form-control" placeholder="Destination" th:field="*{destination}"> <br>
@@ -27,10 +27,10 @@
         <input type="time" name="heure" class="form-control" placeholder="hour" th:field="*{heure}"> <br>
         <input class="btn btn-primary" type="submit"></div>
     </form>
-  </div>
+  </div> -->
 <center>
     <h2>
-        List des voyages
+        My Reservation List
     </h2>
 </center>
 <div class="container">
@@ -50,24 +50,17 @@
       </thead>
       <tbody>
 
-        <tr th:if="${travels.empty}">
+        <tr th:if="${reservations.empty}">
           <th scope="row">1</th>
           <td colspan="2"> No travels Available </td>
         </tr>
-        <tr th:each="agence : ${travels}">
-          <!-- <th scope="row">1</th> -->
+        <tr th:each="agence : ${reservations}">
+          <th scope="row">1</th>
           <td><span th:text="${agence.id}"> </span></td>
-          <td><span th:text="${agence.depart}"> </span></td>
-          <td><span th:text="${agence.destination}"> </span></td>
-          <td><span th:text="${agence.date}"> </span></td>
-          <td><span th:text="${agence.heure}"> </span></td>
-          <td><span th:text="${agence.Tarif}"> </span></td>
-          <!-- <td><span th:text="${agence.Agence}"> </span></td> -->
-
-
+          <td><span th:text="${agence.nbPlace}"> </span></td>
           <td>
-            <!-- (id=${agence.id}) -->
-            <a th:href="@{/user/saveReservation(id=${agence.id})}">
+            (id=${agence.id})
+            <a th:href="@{/user/reserve(id=${agence.id})}">
               <i class="bi bi-trash red"></i>
             </a>
           </td>

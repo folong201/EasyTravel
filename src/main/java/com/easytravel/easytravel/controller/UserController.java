@@ -1,5 +1,6 @@
 package com.easytravel.easytravel.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +67,7 @@ public class UserController {
         return "/user/resultfind";
     }
 
-    @GetMapping(value = "/user/saveRservation")
+    @GetMapping(value = "/user/saveReservation")
     public String saveReservation(@RequestParam Long id){
         User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Travel travel = travelRepo.findById(id).orElse(null);
@@ -76,8 +77,25 @@ public class UserController {
         reservation.setNbPlace(1);
         reservation.setTravel(travel);
         System.out.println(reservation);
-        // reservationRepo.save(reservation);
+        reservationRepo.save(reservation);
         return "user/dashboard";
+    }
+
+    @GetMapping(value = "/user/myReservation")
+    public String myReservation(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List <Reservation> myReserv = reservationRepo.findByUser(user);
+        List<Reservation> allReservation =myReserv;// new ArrayList<Reservation>();
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        for (int i = 0; i < allReservation.size(); i++) {
+            if (allReservation.get(i).getUser().getId()==user.getId()) {
+                System.out.println(allReservation.get(i).getUser());
+                reservations.add(allReservation.get(i));
+            }
+        }
+        model.addAttribute("reservations",reservations);
+
+        return "user/myReservation";
     }
 
 }
