@@ -1,5 +1,8 @@
 package com.easytravel.easytravel.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +51,16 @@ public class AgenceService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Iterable<Travel> findByAgence(Long id){
+        List<Travel> travels = travelRepo.findAll();
+        List<Travel> travels2 = new ArrayList<Travel>();
+        for(int i=0;i<travels.size();i++){
+            if (travels.get(i).getAgence()!=null && travels.get(i).getAgence().getId()==id) {
+                travels2.add(travels.get(i));
+            }
+        }
+        return travels2;
     }
 }

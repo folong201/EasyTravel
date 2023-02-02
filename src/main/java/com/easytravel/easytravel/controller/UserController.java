@@ -19,7 +19,9 @@ import com.easytravel.easytravel.model.Travel;
 import com.easytravel.easytravel.model.User;
 import com.easytravel.easytravel.repository.ReservationRepository;
 import com.easytravel.easytravel.repository.TravelRepository;
+import com.easytravel.easytravel.service.AgenceService;
 import com.easytravel.easytravel.service.UserService;
+import com.easytravel.easytravel.service.UserServiceImpl;
 
 import org.springframework.ui.Model;
 // import jakarta.validation.OverridesAttribute.List;
@@ -28,11 +30,14 @@ import org.springframework.ui.Model;
 @Controller
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
     @Autowired
     TravelRepository travelRepo;
     @Autowired
     ReservationRepository reservationRepo;
+    @Autowired
+    AgenceService agenceService;
+
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
     public String homePage(){
         return "user/dashboard";
@@ -77,7 +82,12 @@ public class UserController {
         reservation.setNbPlace(1);
         reservation.setTravel(travel);
         System.out.println(reservation);
-        reservationRepo.save(reservation);
+        if(travel!=null){
+            reservation.setTravel(travel);
+            reservationRepo.save(reservation);
+            System.out.println("voyage trouver");
+            System.out.println(travel);
+        }
         return "user/dashboard";
     }
 
@@ -89,7 +99,7 @@ public class UserController {
         List<Reservation> reservations = new ArrayList<Reservation>();
         for (int i = 0; i < allReservation.size(); i++) {
             if (allReservation.get(i).getUser().getId()==user.getId()) {
-                System.out.println(allReservation.get(i).getUser());
+                // System.out.println(allReservation);
                 reservations.add(allReservation.get(i));
             }
         }
@@ -98,4 +108,20 @@ public class UserController {
         return "user/myReservation";
     }
 
+    @GetMapping(value = "user/reserve/delete")
+    public String deleteReservation(@RequestParam Long id){
+        userService.deleteReservation(id);
+        return "redirect:/user/myReservation";
+    }
+
+    @GetMapping(value = "user/agences")
+    public String agenceList(Model model){
+        model.addAttribute("travels", agenceService.findAll());
+        return "user/agences";
+    }
+    @GetMapping(value="user/agenceTravels")
+    public String aganeceTravels(@RequestParam Long id,Model model){
+        model.addAttribute("travels", agenceService.findByAgence(id));
+        return "user/agenceTravels";
+    }
 }

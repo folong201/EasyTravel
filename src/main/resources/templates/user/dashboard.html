@@ -15,10 +15,11 @@
     <p>Has role: <span sec:authentication="authorities"></span></p>
   </div>
   <div class="container " style="display: flex; place-items: 12px;">
-    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/dashboard}">Home</a></p>
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/user/reservation}">Reservation</a></p>
     <p class="spacer"><a th:href="@{/user/myReservation}">My Reservation</a></p>
+    <p class="spacer"><a th:href="@{/user/agence}">Agence</a></p>
   </div>
 
   <style>

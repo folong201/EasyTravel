@@ -2,6 +2,7 @@ package com.easytravel.easytravel.service;
 
 // import com.easytravel.easytravel.model.Role;
 import com.easytravel.easytravel.model.User;
+import com.easytravel.easytravel.repository.ReservationRepository;
 import com.easytravel.easytravel.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ReservationRepository reseratioRepo;
 
     @Override
     public void saveUser(User user) {
@@ -69,6 +72,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Iterable<User> finAll() {
        var x=  userRepository.findAll();
         return x;
+    }
+
+    public void deleteReservation(Long id){
+        reseratioRepo.deleteById(id);
     }
 
 }

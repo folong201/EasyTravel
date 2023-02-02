@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>User Dashboard</title> 
+  <title>List of agence</title> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   </head>
@@ -33,13 +33,8 @@
       <thead>
         <tr>
           <th scope="col">id</th>
-          <th scope="col">depart</th>
-          <th scope="col">destination</th>
-          <th scope="col">date</th>
-          <th scope="col">Heure</th>
-          <th scope="col">Tarif</th>
-          <th scope="col">Agence</th>
-          <th scope="col">Reserver</th>
+          <th scope="col">nom</th>
+          <th scope="col">More</th>
         </tr>
       </thead>
       <tbody>
@@ -49,18 +44,12 @@
           <td colspan="2"> No travels Available </td>
         </tr>
         <tr th:each="agence : ${travels}">
-          <!-- <th scope="row">1</th> -->
           <td><span th:text="${agence.id}"> </span></td>
-          <td><span th:text="${agence.depart}"> </span></td>
-          <td><span th:text="${agence.destination}"> </span></td>
-          <td><span th:text="${agence.date}"> </span></td>
-          <td><span th:text="${agence.heure}"> </span></td>
-          <td><span th:text="${agence.Tarif}"> </span></td>
-          <td><span th:text="${agence.Agence!=null}? ${agence.Agence.name}:'Agence not found'"> </span></td>
-
+          <td><span th:text="${agence.name}"> </span></td>
           <td>
-            <a th:href="@{/user/saveReservation(id=${agence.id})}">
-                <i class="bi bi-link-45deg green"></i>            </a>
+            <a th:href="@{/user/agenceTravels(id=${agence.id})}">
+                 <i class="bi bi-three-dots green"></i> 
+            </a>
           </td>
         </tr>
 

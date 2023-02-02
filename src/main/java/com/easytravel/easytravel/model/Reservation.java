@@ -58,5 +58,6 @@ public class Reservation {
     private User user;
 
     public void setTravel(Travel travel2) {
+        this.travel = travel2;
     }
 }

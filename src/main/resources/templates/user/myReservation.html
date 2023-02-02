@@ -15,19 +15,12 @@
     <p>Has role: <span sec:authentication="authorities"></span></p>
   </div>
   <div class="container " style="display: flex; place-items: 12px;">
-    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/dashboard}">Home</a></p>
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/user/reservation}">Reservation</a></p>
+    <p class="spacer"><a th:href="@{/user/myReservation}">My Reservation</a></p>
+    <p class="spacer"><a th:href="@{/user/agence}">Agence</a></p>
   </div>
-  <!-- <div class="container">
-    <form th:action="@{/user/findReservation}" method="post" th:object="${travel}">
-        <input type="text" name="depart" class="form-control" placeholder="Depart" th:field="*{depart}"> <br>
-        <input type="text" name="destination" class="form-control" placeholder="Destination" th:field="*{destination}"> <br>
-        <input type="date" name="date" class="form-control" placeholder="Date" th:field="*{date}"> <br>
-        <input type="time" name="heure" class="form-control" placeholder="hour" th:field="*{heure}"> <br>
-        <input class="btn btn-primary" type="submit"></div>
-    </form>
-  </div> -->
 <center>
     <h2>
         My Reservation List
@@ -39,13 +32,13 @@
       <thead>
         <tr>
           <th scope="col">id</th>
-          <th scope="col">depart</th>
+          <th scope="col">Nombre de place</th>
+          <th scope="col">Depart</th>
           <th scope="col">destination</th>
           <th scope="col">date</th>
           <th scope="col">Heure</th>
           <th scope="col">Tarif</th>
-          <th scope="col">Reserver</th>
-          <th scope="col">Edit</th>
+          <th scope="col">Anuller</th>
         </tr>
       </thead>
       <tbody>
@@ -55,18 +48,21 @@
           <td colspan="2"> No travels Available </td>
         </tr>
         <tr th:each="agence : ${reservations}">
-          <th scope="row">1</th>
+          <!-- <th scope="row">1</th> -->
           <td><span th:text="${agence.id}"> </span></td>
           <td><span th:text="${agence.nbPlace}"> </span></td>
+          <td><span th:text="${agence.travel!=null} ?${agence.travel.depart}:'voyages no trouver'"> </span></td>
+          <td><span th:text="${agence.travel!=null} ?${agence.travel.destination}:'voyages no trouver'"> </span></td>
+          <td><span th:text="${agence.travel!=null} ?${agence.travel.date}:'voyages no trouver'"> </span></td>
+          <td><span th:text="${agence.travel!=null} ?${agence.travel.heure}:'voyages no trouver'"> </span></td>
+          <td><span th:text="${agence.travel!=null} ?${agence.travel.Tarif}:'voyages no trouver'"> </span></td>
+
+
+
           <td>
-            (id=${agence.id})
-            <a th:href="@{/user/reserve(id=${agence.id})}">
+            <a th:href="@{/user/reserve/delete(id=${agence.id})}">
               <i class="bi bi-trash red"></i>
             </a>
-          </td>
-          
-          <td>
-            <i class="bi bi-pencil-square"></i>
           </td>
         </tr>
 
@@ -76,6 +72,9 @@
   <style>
     .spacer{
       margin: 20px;
+    }
+    .red{
+      color: red;
     }
   </style>
 </body>

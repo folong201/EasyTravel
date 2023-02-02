@@ -15,9 +15,11 @@
     <p>Has role: <span sec:authentication="authorities"></span></p>
   </div>
   <div class="container " style="display: flex; place-items: 12px;">
-    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/dashboard}">Home</a></p>
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/user/reservation}">Reservation</a></p>
+    <p class="spacer"><a th:href="@{/user/myReservation}">My Reservation</a></p>
+    <p class="spacer"><a th:href="@{/user/agence}">Agence</a></p>
   </div>
   <div class="container">
     <form th:action="@{/user/findReservation}" method="post" th:object="${travel}">
@@ -44,8 +46,8 @@
           <th scope="col">date</th>
           <th scope="col">Heure</th>
           <th scope="col">Tarif</th>
+          <th scope="col">Agence</th>
           <th scope="col">Reserver</th>
-          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -62,18 +64,15 @@
           <td><span th:text="${agence.date}"> </span></td>
           <td><span th:text="${agence.heure}"> </span></td>
           <td><span th:text="${agence.Tarif}"> </span></td>
-          <!-- <td><span th:text="${agence.Agence}"> </span></td> -->
+          <td><span th:text="${agence.Agence!=null} ? ${agence.agence.name}:'Agence not found '"> </span></td>
 
 
           <td>
             <!-- (id=${agence.id}) -->
             <a th:href="@{/user/saveReservation(id=${agence.id})}">
-              <i class="bi bi-trash red"></i>
+              <i class="bi bi-pencil-square"></i>
+
             </a>
-          </td>
-          
-          <td>
-            <i class="bi bi-pencil-square"></i>
           </td>
         </tr>
 
