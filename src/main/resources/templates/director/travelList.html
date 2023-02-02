@@ -19,6 +19,7 @@
     <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
     <p class="spacer"><a th:href="@{/director/createTravel}">createTravel</a></p>
     <p class="spacer"><a th:href="@{/director/travelList}">Travel List</a></p>
+    <p class="spacer"><a th:href="@{/updatePassword}">updatePassword</a></p>
   </div>
     <!-- <div class="container">
       <table class="table">
@@ -70,14 +71,14 @@
 
 
           <td>
-            <!-- (id=${agence.id}) -->
             <a th:href="@{/director/travel/delete(id=${agence.id})}">
               <i class="bi bi-trash red"></i>
             </a>
           </td>
-          
           <td>
-            <i class="bi bi-pencil-square"></i>
+            <a th:href="@{/director/updateTravel(id=${agence.id})}">
+              <i class="bi bi-pencil-square"></i>
+            </a>
           </td>
         </tr>
 

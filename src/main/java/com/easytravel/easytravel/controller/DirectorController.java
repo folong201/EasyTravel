@@ -18,6 +18,7 @@ import com.easytravel.easytravel.model.Travel;
 import com.easytravel.easytravel.model.User;
 import com.easytravel.easytravel.repository.TravelRepository;
 import com.easytravel.easytravel.service.AgenceService;
+import com.easytravel.easytravel.service.TravelService;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,6 +30,8 @@ public class DirectorController {
     AgenceService aService;
     @Autowired
     TravelRepository travelRepo;
+    @Autowired 
+    TravelService travelService;
     @GetMapping("/director/dashboard")
     public String index() {
         return "/director/dashboard";
@@ -72,6 +75,23 @@ public class DirectorController {
         model.addAttribute("travels",travelRepo.findAll());
         System.out.println(travelRepo.findAll());
         return "director/travelList";
+    }
+
+    @GetMapping(value = "director/updateTravel")
+    public String updateTravel(@RequestParam Long id,Model model){
+        Travel travel =  travelService.findById(id);
+        if (travel==null) {
+            return "redirect:director/dashboard";
+        }
+        model.addAttribute("travel",travel);
+        return "director/updateTravel";
+    }
+
+    @PostMapping(value = "director/updateTravel")
+    public String uodateTravel(@ModelAttribute Travel travel){
+        travelService.updateTravel(travel);
+        System.out.println(travel);
+        return "redirect:/director/travelList";
     }
 
 }

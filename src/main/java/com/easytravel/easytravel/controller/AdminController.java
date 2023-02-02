@@ -3,7 +3,9 @@ package com.easytravel.easytravel.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,8 @@ import com.easytravel.easytravel.model.User;
 import com.easytravel.easytravel.service.AdminService;
 import com.easytravel.easytravel.service.AgenceService;
 import com.easytravel.easytravel.service.UserService;
+import com.easytravel.easytravel.service.UserServiceImpl;
+
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -24,7 +28,7 @@ import jakarta.validation.Valid;
 @Controller
 public class AdminController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
     @Autowired
     AdminService adminService;
     @Autowired
@@ -76,6 +80,21 @@ public class AdminController {
          Iterable<Agence> agences =  agenceService.findAll();
          System.out.println(agences);
         return "admin/agence";
+    }
+    @GetMapping("/admin/agence/edit")
+    public String UpdateAgnce(@RequestParam Long id,Model model){
+        User  director = (User) userService.findById(id);
+        if (director==null) {
+            return "redirect:admin/dasboard";
+        }
+        model.addAttribute("user",director);
+        return "admin/agenceUpdate";
+    }
+    @PostMapping("/admin/agence/edit")
+    public String UpdateAgnceSave(@ModelAttribute User user,Model model){
+        userService.UpdateAgnce(user);
+        System.out.println(user);
+        return "redirect:/admin/agences";
     }
 }
 

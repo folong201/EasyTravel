@@ -28,12 +28,13 @@
 
   </div>
   <div class="container">
-    <form th:action="@{/director/createTravel}" method="post" th:object="${travel}">
+    <form th:action="@{/director/updateTravel}" method="post" th:object="${travel}">
         <input type="text" name="depart" class="form-control" placeholder="Depart" th:field="*{depart}"> <br>
         <input type="text" name="destination" class="form-control" placeholder="Destination" th:field="*{destination}"> <br>
         <input type="date" name="date" class="form-control" placeholder="Date" th:field="*{date}"> <br>
         <input type="time" name="heure" class="form-control" placeholder="hour" th:field="*{heure}"> <br>
         <input type="number" name="Tarif" class="form-control" placeholder="tarif" th:field="*{Tarif}"> <br>
+        <input type="number" name="id" class="form-control" placeholder="id"  th:field="*{id}" required hidden> <br>
         <input class="btn btn-primary" type="submit"></div>
     </form>
   </div>

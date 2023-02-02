@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Resgister</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  </head>
+<body>
+    <div class="container">
+        <p class="">Logged as: <span sec:authentication="name"></span></p>
+        <p class="">Has role: <span sec:authentication="authorities"></span></p> <br>
+      </div>
+      <div class="container" style="display: flex; place-items: 12px;">
+        <p class="spacer"><a th:href="@{/}">Home</a></p>
+        <p class="spacer"><a th:href="@{/admin/createAgence}">Create agnce</a></p>
+        <p class="spacer"><a th:href="@{/admin/agences}">Agences</a></p>
+        <p class="spacer"><a th:href="@{/updateAccount}">Update Account</a></p>
+        <p class="spacer"><a th:href="@{/updatePassword}">updatePassword</a></p>
+        <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
+      </div>
+    <div class="container"> 
+        <center>
+        <h1 class="p-12">Update Agence</h1>
+        </center>
+        <form th:action="@{/admin/agence/edit}" th:object="${user}" method="post">
+            <div class=" mb-1">
+                <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" id="exampleFormControlInput1" required/>     
+            </div>
+            <div class=" mb-1">
+                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" id="exampleFormControlInput1" required/>     
+            </div>
+            <div class=" mb-1">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" th:field="*{email}" placeholder="Email" class="form-control" id="exampleFormControlInput1" required />     
+            </div>
+            <input type="number" th:field="*{id}" placeholder="Email" class="form-control" id="exampleFormControlInput1" value="${user.id}" required hidden />     
+
+                <div class="div">
+                <button class="btn btn-primary" type="submit">Register</button> 
+                </div>
+
+        </form>
+    </div>
+</body>
+</html>

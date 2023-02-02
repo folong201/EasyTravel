@@ -9,12 +9,25 @@
     <h2>Welcome to Admin Dashboard</h2>
   </center>
   <div class="container">
-    <p>Logged as: <span sec:authentication="name"></span></p>
-    <p>Has role: <span sec:authentication="authorities"></span></p>
-    <p><a th:href="@{/}">Home</a></p>
-    <p><a th:href="@{/admin/createAgence}">CREATE AGENCECY</a></p>
-    <p><a th:href="@{/admin/agences}">Agences</a></p>
-    <p><a th:href="@{/logout}">Log out</a></p>
+    <p class="">Logged as: <span sec:authentication="name"></span></p>
+    <p class="">Has role: <span sec:authentication="authorities"></span></p> <br>
   </div>
+  <div class="container" style="display: flex; place-items: 12px;">
+    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/admin/createAgence}">Create agnce</a></p>
+    <p class="spacer"><a th:href="@{/admin/agences}">Agences</a></p>
+    <p class="spacer"><a th:href="@{/updateAccount}">Update Account</a></p>
+    <p class="spacer"><a th:href="@{/updatePassword}">updatePassword</a></p>
+    <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
+  </div>
+  <style>
+    .spacer {
+      margin: 18px;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
 </body>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.easytravel.easytravel.model.Reservation;
 import com.easytravel.easytravel.model.Travel;
@@ -123,5 +124,32 @@ public class UserController {
     public String aganeceTravels(@RequestParam Long id,Model model){
         model.addAttribute("travels", agenceService.findByAgence(id));
         return "user/agenceTravels";
+    }
+    @GetMapping(value = "updatePassword")
+    public String updatePasssword(){
+        return "auth/updatePassword";
+    }
+    @PostMapping(value = "updatePassword")
+    public RedirectView saveUpdatedPassword(@RequestParam("password") String password){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.changePassword(password,(long) user.getId());
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080");
+        return redirectView;
+        // return "redirect:/";
+    }
+
+    @GetMapping(value="updateAccount")
+    public String updateAccount(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("user", user);
+        return "auth/updateAccount";
+    }
+
+    @PostMapping(value = "updateAccount")
+    public String updateAccountSave(@ModelAttribute User user){
+        userService.updateinfo(user);
+        return "redirect:logout";
     }
 }

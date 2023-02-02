@@ -11,11 +11,16 @@
     <h2>CREATE AGENCE</h2>
   </center>
   <div class="container">
-    <p>Logged as: <span sec:authentication="name"></span></p>
-    <p>Has role: <span sec:authentication="authorities"></span></p>
-    <p><a th:href="@{/admin/createAgence}">CREATE AGENCE</a></p>
-    <p><a th:href="@{/admin/dashboard}">Home</a></p>
-    <p><a th:href="@{/logout}">Log out</a></p>
+    <p class="">Logged as: <span sec:authentication="name"></span></p>
+    <p class="">Has role: <span sec:authentication="authorities"></span></p> <br>
+  </div>
+  <div class="container" style="display: flex; place-items: 12px;">
+    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/admin/createAgence}">Create agnce</a></p>
+    <p class="spacer"><a th:href="@{/admin/agences}">Agences</a></p>
+    <p class="spacer"><a th:href="@{/updateAccount}">Update Account</a></p>
+    <p class="spacer"><a th:href="@{/updatePassword}">updatePassword</a></p>
+    <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
   </div>
   <div class="container">
 
@@ -47,12 +52,11 @@
         <input type="password" th:field="*{password}" placeholder="Password" class="form-control"
           id="exampleFormControlInput1" />
       </div>
-      <select th:field="*{role}" required class="select">
+      <select th:field="*{role}" required class="select" hidden>
         <option value="DIRECTOR">DIRECTOR</option>
       </select>
       <div class="div">
-        <button class="btn btn-primary" type="submit">Register</button> | <a th:href="@{|/login|}"
-          th:text="'Log in'"></a>
+        <button class="btn btn-primary" type="submit">Save</button>
       </div>
       <div class="alert alert-success">
         <span th:utext="${successMessage}"></span>
@@ -65,6 +69,15 @@
       </div>
     </form>
   </div>
+  <style>
+    .spacer {
+      margin: 18px;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
 </body>
 
 </html>

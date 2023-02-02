@@ -60,12 +60,14 @@ public class WebSecurityConfig {
 
                 http.authorizeHttpRequests()
                 // URL matching for accessibility
-                .requestMatchers("/*").permitAll()
-                // .requestMatchers("/", "/login", "/register","/*").permitAll()
+                // .requestMatchers("/*").permitAll()
+                .requestMatchers("/", "/login", "/register","/updatePassword").permitAll()
                 .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .requestMatchers("/account/**").hasAnyAuthority("USER")
                 .requestMatchers("/user/**").hasAnyAuthority("USER")
                 .requestMatchers("/director/**").hasAnyAuthority("DIRECTOR")
+                .requestMatchers("/updateAccount").hasAnyAuthority("USER","ADMIN")
+                
                 .anyRequest().authenticated()
                 .and()
                 // form login

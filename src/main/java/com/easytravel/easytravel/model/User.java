@@ -1,8 +1,6 @@
 package com.easytravel.easytravel.model;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,21 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.EnumType;
-// import jakarta.persistence.Enumerated;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.SequenceGenerator;
-// import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import java.util.List;
 
 
 @Entity

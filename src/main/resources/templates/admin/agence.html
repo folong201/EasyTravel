@@ -9,15 +9,19 @@
 
 <body>
   <center>
-    <h2>Welcome to Admin Dashboard</h2>
+    <h2>List des agences</h2>
   </center>
   <div class="container">
-    <p>Logged as: <span sec:authentication="name"></span></p>
-    <p>Has role: <span sec:authentication="authorities"></span></p>
-    <p><a th:href="@{/}">Home</a></p>
-    <p><a th:href="@{/admin/createAgence}">Create agnce</a></p>
-    <p><a th:href="@{/admin/agences}">Agences</a></p>
-    <p><a th:href="@{/logout}">Log out</a></p>
+    <p class="">Logged as: <span sec:authentication="name"></span></p>
+    <p class="">Has role: <span sec:authentication="authorities"></span></p> <br>
+  </div>
+  <div class="container" style="display: flex; place-items: 12px;">
+    <p class="spacer"><a th:href="@{/}">Home</a></p>
+    <p class="spacer"><a th:href="@{/admin/createAgence}">Create agnce</a></p>
+    <p class="spacer"><a th:href="@{/admin/agences}">Agences</a></p>
+    <p class="spacer"><a th:href="@{/updateAccount}">Update Account</a></p>
+    <p class="spacer"><a th:href="@{/updatePassword}">updatePassword</a></p>
+    <p class="spacer"><a th:href="@{/logout}">Log out</a></p>
   </div>
   <div class="container">
 
@@ -48,9 +52,10 @@
               <i class="bi bi-trash red"></i>
             </a>
           </td>
-          
           <td>
-            <i class="bi bi-pencil-square"></i>
+            <a th:href="@{/admin/agence/edit(id=${agence.directorId})}">
+              <i class="bi bi-pencil-square"></i>
+            </a>
           </td>
         </tr>
 
@@ -62,12 +67,11 @@
 
   <style>
     .spacer {
-      margin: 20px;
+      margin: 18px;
     }
 
     .red {
       color: red;
-      /* background-color: red; */
     }
   </style>
 </body>

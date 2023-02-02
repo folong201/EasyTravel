@@ -1,7 +1,9 @@
 package com.easytravel.easytravel.service;
 
+import com.easytravel.easytravel.model.Agence;
 // import com.easytravel.easytravel.model.Role;
 import com.easytravel.easytravel.model.User;
+import com.easytravel.easytravel.repository.AgenceRepository;
 import com.easytravel.easytravel.repository.ReservationRepository;
 import com.easytravel.easytravel.repository.UserRepository;
 
@@ -26,6 +28,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     UserRepository userRepository;
     @Autowired
     ReservationRepository reseratioRepo;
+    @Autowired
+    AgenceRepository agenceRepo;
 
     @Override
     public void saveUser(User user) {
@@ -76,6 +80,43 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public void deleteReservation(Long id){
         reseratioRepo.deleteById(id);
+    }
+
+    public void changePassword(String password,Long id){
+        //update user password
+        User user2 = userRepository.findById(id).orElse(null);
+        user2.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(user2);
+
+    }
+
+    public void updateinfo(User user) {
+        User user2 = userRepository.findById((long) user.getId()).orElse(null);
+        if (user2!=null) {
+            user2.setEmail(user.getEmail());
+            user2.setFirstName(user.getFirstName());
+            user2.setLastName(user.getLastName());
+            userRepository.save(user2);
+        }
+    }
+
+    public Object findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void UpdateAgnce(User user) {
+        User user2 = userRepository.findById((long) user.getId()).orElse(null);
+        if (user2!=null) {
+            Agence agence = agenceRepo.findByDirectorId((long) user2.getId()).orElse(null);
+            user2.setEmail(user.getEmail());
+            user2.setFirstName(user.getFirstName());
+            user2.setLastName(user.getLastName());
+            if (agence!=null) {
+                agence.setName(user2.getFirstName());
+                agenceRepo.save(agence);
+                userRepository.save(user2);
+            }
+        }
     }
 
 }
