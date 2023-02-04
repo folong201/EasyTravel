@@ -2,7 +2,6 @@ package com.easytravel.easytravel.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,6 @@ import com.easytravel.easytravel.model.User;
 import com.easytravel.easytravel.repository.ReservationRepository;
 import com.easytravel.easytravel.repository.TravelRepository;
 import com.easytravel.easytravel.service.AgenceService;
-import com.easytravel.easytravel.service.UserService;
 import com.easytravel.easytravel.service.UserServiceImpl;
 
 import org.springframework.ui.Model;
@@ -134,7 +132,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changePassword(password,(long) user.getId());
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080");
+        redirectView.setUrl("http://localhost:8080/logout");
         return redirectView;
         // return "redirect:/";
     }

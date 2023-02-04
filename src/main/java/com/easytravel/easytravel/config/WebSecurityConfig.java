@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                 http.authorizeHttpRequests()
                 // URL matching for accessibility
                 // .requestMatchers("/*").permitAll()
-                .requestMatchers("/", "/login", "/register","/updatePassword").permitAll()
+                .requestMatchers("/", "/login", "/register","/updatePassword","/h2-console").permitAll()
                 .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .requestMatchers("/account/**").hasAnyAuthority("USER")
                 .requestMatchers("/user/**").hasAnyAuthority("USER")

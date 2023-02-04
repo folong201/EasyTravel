@@ -12,21 +12,12 @@
 </style>
 <body>
   <center>
-    <h2>Welcome to Homepage</h2>
+    <h2>Welcome to Easy-Travel</h2>
   </center>
-  <div class="container">
-    <center>
-      <h4>
-        Welcome Text
-      </h4>
-    </center>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat sed tenetur iusto neque eaque molestiae odio optio ab itaque in eum adipisci accusamus commodi voluptate veritatis autem tempore, quidem corporis?
-    </p>
-  </div>
+
   <div class="container">
     
-    <p sec:authorize="hasRole('ROLE_ANONYMOUS')">Text visible to anonymous.</p>
+    <p sec:authorize="hasRole('ROLE_ANONYMOUS')">You are not Connected.</p>
     <p sec:authorize="hasRole('USER')">Text visible to user.</p>
     <p sec:authorize="hasRole('ADMIN')">Text visible to admin.</p>
     <p sec:authorize="isAuthenticated()">Text visible only to authenticated users.</p>

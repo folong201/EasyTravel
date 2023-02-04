@@ -1,13 +1,8 @@
 package com.easytravel.easytravel.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +51,7 @@ public class DirectorController {
         }
 
         System.out.println(aService.findAll());
-        return "director/createTravel";
+        return "redirect:/director/travelList";
     }
     @GetMapping(value = "/director/travelList")
     public String getTravelList(Model model) {
